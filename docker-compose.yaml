@@ -1,0 +1,26 @@
+version: '2.4'
+services:
+    doh-client:
+        build: .
+        image: xyzrlee/doh
+        volumes:
+            - .:/conf:ro
+        entrypoint: doh-client
+        command: -conf /conf/doh-client.conf
+    doh-server:
+        build: .
+        image: xyzrlee/doh
+        volumes:
+            - .:/conf:ro
+        entrypoint: doh-server
+        command: -conf /conf/doh-server.conf
+networks:
+    default:
+        driver: bridge
+        enable_ipv6: true
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.200.0/24
+                - subnet: fd00:aaaa:aaaa::/48
+
